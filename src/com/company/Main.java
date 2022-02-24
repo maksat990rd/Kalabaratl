@@ -4,29 +4,66 @@ import java.util.Random;
 
 public class Main {
 
+    static Random random = new Random();
+
     public static void main(String[] args) {
-        Random random = new Random();
-        int a = random.nextInt(5,10);
-        int[] array = new int[a];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = random.nextInt(100);
-        }
-        for (int b: array) {
-            System.out.print(b + " ");
-        }
+
+        int[] array = createAnArray(5, 15);
+
+        array = fillArrayWithRandomNumbers(array, 100);
+
+        printElementsOfArray(array);
         System.out.println();
 
-        int g = random.nextInt(5,10);
-        int[] arr = new int[g];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = random.nextInt(100);
-        }
-        for (int p: arr) {
+        int[] arr = createAnArray(5, 10);
 
+        arr = fillArrayWithRandomNumbers(arr, 100);
+
+        printElementsOfArray(arr);
+
+        int[] mergedArray = mergeTwoIntArray(array, arr);
+
+        printElementsOfArray(mergedArray);
+
+
+
+    }
+
+    static int[] createAnArray(int originLength, int boundLength) {
+        return new int[random.nextInt(originLength, boundLength)];
+    }
+
+
+    static int[] mergeTwoIntArray(int[] array1, int[] array2) {
+
+        int[] all = new int[array1.length + array2.length];
+
+        int counterForArray1 = 0;
+        int counterForArray2 = 0;
+
+        for (int i = 0; i < all.length; i++) {
+            if (counterForArray1 < array1.length) {
+                all[i] = array1[counterForArray1];
+                counterForArray1++;
+            } else {
+                all[i] = array2[counterForArray2];
+                counterForArray2++;
+            }
         }
-        int[] all = new int[array.length + arr.length];
-        for (int alls: all) {
-            
+        return all;
+    }
+
+    static int[] fillArrayWithRandomNumbers(int[] array, int bound) {
+        for (int i = 0; i < array.length; i++) {
+            array[i] = random.nextInt(bound);
         }
+        return array;
+    }
+
+    static void printElementsOfArray(int[] array) {
+        for (int i : array) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
     }
 }
